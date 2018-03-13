@@ -25,17 +25,12 @@ public abstract class AbstractDataSource implements DataSource {
     protected abstract String getDriver();
 
     @Override
-    public Connection getConnection() {
-        try {
-            Class.forName(getDriver());
+    public Connection getConnection() throws ClassNotFoundException, SQLException {
+        Class.forName(getDriver());
 
-            Connection connection = DriverManager.getConnection(this.url, this.user, this.password);
+        Connection connection = DriverManager.getConnection(this.url, this.user, this.password);
 
-            return connection;
+        return connection;
 
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }
